@@ -15,16 +15,17 @@ func main() {
 	config := check.NewConfig()
 	config.Name = "check-ecs-snapshots"
 	config.Readme = `Check for Elastic Cloud Server (ECS) snapshot age on Open Telekom Cloud (OTC)`
-	config.Version = "1.0.0"
+	config.Version = "1.0.1"
 
 	critical := config.FlagSet.IntP("critical", "c", 60, "critical threshold for age of snapshot in days")
 	warning := config.FlagSet.IntP("warning", "w", 30, "warning threshold for age of snapshot in days")
+	cloudName := config.FlagSet.String("cloud", "", "set key for section in openstack config")
 	cbr := config.FlagSet.Bool("cbr", false, "check cbr backups instead of snapshots")
 
 	config.ParseArguments()
 
-	env := openstack.NewEnv("OS_", true)
-	cloud, err := env.Cloud()
+	env := openstack.NewEnv("OS_")
+	cloud, err := env.Cloud(*cloudName)
 
 	if err != nil {
 		panic(err)
