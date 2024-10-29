@@ -15,7 +15,7 @@ func main() {
 	config := check.NewConfig()
 	config.Name = "check-ecs-snapshots"
 	config.Readme = `Check for Elastic Cloud Server (ECS) snapshot age on Open Telekom Cloud (OTC)`
-	config.Version = "1.0.1"
+	config.Version = "1.1.1"
 
 	critical := config.FlagSet.IntP("critical", "c", 60, "critical threshold for age of snapshot in days")
 	warning := config.FlagSet.IntP("warning", "w", 30, "warning threshold for age of snapshot in days")
